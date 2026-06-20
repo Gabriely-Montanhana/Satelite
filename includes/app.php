@@ -12,14 +12,14 @@ function carregarProdutosDaAplicacao()
     $produtos = montarArrayProdutos($linhas);
 
     if (!validarProdutos($produtos)) {
-        throw new Exception('Nao foi possivel carregar os produtos.');
+        throw new Exception('Não foi possível carregar os produtos.');
     }
 
     return $produtos;
 }
 
-// Adiciona frete e desconto em cada produto
-function processarProdutos($produtos, $percentualDesconto = 0)
+// Adiciona frete em cada produto
+function processarProdutos($produtos)
 {
     $processados = array();
     $i = 0;
@@ -29,7 +29,6 @@ function processarProdutos($produtos, $percentualDesconto = 0)
         $peso = estimarPesoKg($produto['codigo']);
 
         $produto['frete'] = calcularFrete($produto['preco'], $peso);
-        $produto['preco_com_desconto'] = aplicarDesconto($produto['preco'], $percentualDesconto);
 
         $processados[] = $produto;
         $i++;

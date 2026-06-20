@@ -2,7 +2,7 @@
 
 require_once dirname(__DIR__) . '/includes/app.php';
 
-$tituloPagina = 'Satelite Tornearia | Produtos';
+$tituloPagina = 'Tornearia Satélite | Produtos';
 $paginaAtual = 'produtos';
 $erro = null;
 $produtosExibidos = array();
@@ -16,11 +16,6 @@ if (isset($_GET['busca'])) {
 $precoMinimo = 0;
 if (isset($_GET['preco_min']) && $_GET['preco_min'] != '') {
     $precoMinimo = (float) $_GET['preco_min'];
-}
-
-$descontoAtivo = false;
-if (isset($_GET['desconto']) && $_GET['desconto'] == '1') {
-    $descontoAtivo = true;
 }
 
 try {
@@ -39,12 +34,7 @@ try {
         $produtosExibidos = filtrarPorPrecoMinimo($produtos, $precoMinimo);
     }
 
-    $percentualDesconto = 0;
-    if ($descontoAtivo) {
-        $percentualDesconto = 10;
-    }
-
-    $produtosExibidos = processarProdutos($produtosExibidos, $percentualDesconto);
+    $produtosExibidos = processarProdutos($produtosExibidos);
     $totalProdutos = count($produtosExibidos);
 } catch (Exception $e) {
     $erro = $e->getMessage();
@@ -54,7 +44,7 @@ require dirname(__DIR__) . '/templates/header.php';
 ?>
 
 <section class="page-header rounded-3 p-4 p-md-5 mb-4">
-    <h1 class="display-6 fw-bold mb-2">Catalogo de produtos</h1>
+    <h1 class="display-6 fw-bold mb-2">Catálogo de produtos</h1>
     <p class="lead mb-0">
         Roscas extrusoras, canhões extrusoras e conjuntos de rosca e canhão.
     </p>
@@ -62,7 +52,7 @@ require dirname(__DIR__) . '/templates/header.php';
 
 <?php if ($erro != null): ?>
     <div class="alert alert-danger" role="alert">
-        Nao foi possivel carregar os produtos: <?= htmlspecialchars($erro) ?>
+        Não foi possível carregar os produtos: <?= htmlspecialchars($erro) ?>
     </div>
 <?php else: ?>
     <div class="accordion mb-4" id="filtrosAccordion">
@@ -76,7 +66,7 @@ require dirname(__DIR__) . '/templates/header.php';
                 <div class="accordion-body">
                     <form class="row g-3" method="get" action="produtos.php">
                         <div class="col-md-4">
-                            <label for="busca" class="form-label">Codigo ou nome</label>
+                            <label for="busca" class="form-label">Código ou nome</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -87,7 +77,7 @@ require dirname(__DIR__) . '/templates/header.php';
                             >
                         </div>
                         <div class="col-md-4">
-                            <label for="preco_min" class="form-label">Preco minimo (R$)</label>
+                            <label for="preco_min" class="form-label">Preço mínimo (R$)</label>
                             <input
                                 type="number"
                                 step="0.01"
@@ -121,39 +111,6 @@ require dirname(__DIR__) . '/templates/header.php';
             <?php foreach ($produtosExibidos as $produto): ?>
                 <?php exibirCardProduto($produto); ?>
             <?php endforeach; ?>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th>Foto</th>
-                        <th>Codigo</th>
-                        <th>Produto</th>
-                        <th>Categoria</th>
-                        <th>Preco</th>
-                        <th>Frete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($produtosExibidos as $produto): ?>
-                        <tr>
-                            <td>
-                                <img
-                                    src="<?= htmlspecialchars(obterUrlImagemProduto($produto)) ?>"
-                                    alt="Foto de <?= htmlspecialchars($produto['nome']) ?>"
-                                    class="produto-imagem-tabela"
-                                >
-                            </td>
-                            <td><?= htmlspecialchars($produto['codigo']) ?></td>
-                            <td><?= htmlspecialchars($produto['nome']) ?></td>
-                            <td><?= htmlspecialchars($produto['categoria']) ?></td>
-                            <td>R$ <?= number_format($produto['preco_com_desconto'], 2, ',', '.') ?></td>
-                            <td>R$ <?= number_format($produto['frete'], 2, ',', '.') ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
         </div>
     <?php endif; ?>
 <?php endif; ?>

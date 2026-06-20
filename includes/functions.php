@@ -128,26 +128,23 @@ function calcularFrete($preco, $pesoKg)
     return round($taxaBase + ($pesoKg * $taxaPorKg) + $seguro, 2);
 }
 
-// Aplica desconto em porcentagem sobre o preco
-function aplicarDesconto($preco, $percentual)
-{
-    if ($preco <= 0 || $percentual <= 0) {
-        return $preco;
-    }
-
-    if ($percentual > 100) {
-        $percentual = 100;
-    }
-
-    $valorDesconto = $preco * ($percentual / 100);
-
-    return round($preco - $valorDesconto, 2);
-}
-
 // Mostra o card de um produto na tela
 function exibirCardProduto($produto)
 {
     require dirname(__DIR__) . '/templates/produto_card.php';
+}
+
+// Retorna classes CSS da foto do produto
+function obterClasseImagemProduto($produto)
+{
+    $classe = 'produto-imagem';
+    $codigosFotoInteira = array('SAT-004', 'SAT-008', 'SAT-009');
+
+    if (isset($produto['codigo']) && in_array(strtoupper($produto['codigo']), $codigosFotoInteira)) {
+        $classe = $classe . ' produto-imagem-inteira';
+    }
+
+    return $classe;
 }
 
 // Retorna o caminho da foto do produto para usar no HTML

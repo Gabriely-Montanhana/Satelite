@@ -46,28 +46,28 @@ CREATE TABLE produto_material (
 );
 
 INSERT INTO categorias (nome, descricao) VALUES
-('Roscas Extrusoras', 'Roscas usinadas para extrusoras de plastico'),
+('Roscas Extrusoras', 'Roscas usinadas para extrusoras de plástico'),
 ('Canhões Extrusoras', 'Canhões usinados para linhas de extrusão'),
 ('Conjuntos Rosca e Canhão', 'Conjuntos completos de rosca e canhão para extrusoras'),
-('Cabeçotes', 'Cabeçotes usinados para extrusoras de plastico'),
-('Roscas Injetoras', 'Roscas usinadas para injetoras de plastico'),
-('Outros', 'Produtos diversos para extrusão e injeção de plastico');
+('Cabeçotes', 'Cabeçotes usinados para extrusoras de plástico'),
+('Roscas Injetoras', 'Roscas usinadas para injetoras de plástico'),
+('Outros', 'Produtos diversos para extrusão e injeção de plástico');
 
 INSERT INTO materiais (nome) VALUES
-('Aco 4140'),
-('Aco Inox 420'),
-('Aco D2'),
-('Nitracao superficial'),
+('Aço 4140'),
+('Aço Inox 420'),
+('Aço D2'),
+('Nitratação superficial'),
 ('Revestimento cromo duro');
 
 INSERT INTO produtos (codigo, nome, preco, descricao, categoria_id, destaque, imagem) VALUES
-('SAT-001', 'Rosca extrusora Ø75mm', 19800.00, 'Rosca usinada para extrusora compacta de Ø75mm.', 1, 0, 'sat-001.jpg'),
-('SAT-002', 'Rosca extrusora Ø65mm', 17840.00, 'Rosca extrusora usinada para extrusora de Ø65mm.', 1, 1, 'sat-002.jpeg'),
-('SAT-003', 'Rosca extrusora Ø50mm', 12850.00, 'Rosca extrusora para maquina de Ø50mm.', 1, 0, 'sat-003.jpeg'),
-('SAT-004', 'Canhão extrusora Ø40mm', 17600.00, 'Canhão usinado para extrusora de Ø40mm com acabamento interno.', 2, 0, 'sat-004.jpeg'),
-('SAT-005', 'Conjunto rosca e canhão extrusora Ø75mm', 45580.00, 'Conjunto completo de rosca e canhão usinados para extrusora de Ø75mm.', 3, 0, 'sat-005.jpeg'),
-('SAT-006', 'Conjunto rosca e canhão extrusora Ø60mm', 39780.00, 'Conjunto de rosca e canhão extrusora usinados para maquina de Ø90mm.', 3, 1, 'sat-006.jpeg'),
-('SAT-007', 'Rosca injetora Ø70mm', 17940.00, 'Rosca injetora usinada para injetora de Ø70mm.', 5, 0, 'sat-007.jpeg'),
+('SAT-001', 'Rosca extrusora 75mm', 19800.00, 'Rosca usinada para extrusora compacta de 75mm.', 1, 0, 'sat-001.jpg'),
+('SAT-002', 'Rosca extrusora 65mm', 17840.00, 'Rosca extrusora usinada para extrusora de 65mm.', 1, 1, 'sat-002.jpeg'),
+('SAT-003', 'Rosca extrusora 50mm', 12850.00, 'Rosca extrusora para máquina de 50mm.', 1, 0, 'sat-003.jpeg'),
+('SAT-004', 'Canhão extrusora 40mm', 17600.00, 'Canhão usinado para extrusora de 40mm com acabamento interno.', 2, 0, 'sat-004.jpeg'),
+('SAT-005', 'Conjunto rosca e canhão extrusora 75mm', 45580.00, 'Conjunto completo de rosca e canhão usinados para extrusora de 75mm.', 3, 0, 'sat-005.jpeg'),
+('SAT-006', 'Conjunto rosca e canhão extrusora 60mm', 39780.00, 'Conjunto de rosca e canhão extrusora usinados para máquina de 60mm.', 3, 1, 'sat-006.jpeg'),
+('SAT-007', 'Rosca injetora 70mm', 17940.00, 'Rosca injetora usinada para injetora de 70mm.', 5, 1, 'sat-007.jpeg'),
 ('SAT-008', 'Cabeçote Convencional', 35500.00, 'Cabeçote convencional tipo leque para extrusora de filme.', 4, 0, 'sat-008.jpeg'),
 ('SAT-009', 'Anel de Ar para Extrusora de filme', 18500.00, 'Anel de ar usado em extrusoras de filme.', 6, 0, 'sat-009.jpeg');
 

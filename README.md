@@ -1,4 +1,4 @@
-# Satelite Soluções Indústria
+# Tornearia Satélite
 
 Site de catálogo de produtos para uma tornearia, desenvolvido em **PHP**, **MySQL** e **Bootstrap 5**.
 
@@ -9,7 +9,7 @@ Aplicação web que exibe produtos usinados (roscas, canhões, conjuntos, cabeç
 ## Funcionalidades
 
 - **Home** — apresentação da empresa e produtos em destaque
-- **Produtos** — catálogo completo com cards e tabela
+- **Produtos** — catálogo completo com cards
 - **Fotos** — imagem por produto (com placeholder quando não houver arquivo)
 - **Busca** — por código (ex: `SAT-002`) ou por nome/categoria
 - **Filtro** — por preço mínimo
@@ -40,8 +40,9 @@ Aplicação web que exibe produtos usinados (roscas, canhões, conjuntos, cabeç
 
 Produtos com `destaque = 1` no banco. Atualmente:
 
-- SAT-002 — Rosca extrusora Ø65mm  
-- SAT-006 — Conjunto rosca e canhão extrusora Ø60mm  
+- SAT-002 — Rosca extrusora 65mm  
+- SAT-006 — Conjunto rosca e canhão extrusora 60mm  
+- SAT-007 — Rosca injetora 70mm  
 
 Para alterar:
 
@@ -136,7 +137,7 @@ cmd /c "mysql --default-character-set=utf8mb4 -h IP_DA_VM -u usuario -p torneari
 
 - Produtos em **um único array** (`montarArrayProdutos`)
 - Estruturas **`if`**, **`while`** e **`foreach`**
-- Funções com **`return`**: `calcularFrete`, `aplicarDesconto`, `buscarProdutoPorCodigo`, `filtrarPorPrecoMinimo`, `exibirCardProduto`
+- Funções com **`return`**: `calcularFrete`, `buscarProdutoPorCodigo`, `filtrarPorPrecoMinimo`, `exibirCardProduto`
 - Conexão **PDO** com MySQL
 - Validação com `validarProdutos` antes de exibir os dados
 

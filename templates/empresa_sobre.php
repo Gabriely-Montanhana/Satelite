@@ -27,8 +27,8 @@
             <div class="info-card h-100 p-4 rounded-3">
                 <h2 class="h5 fw-bold">Quem somos</h2>
                 <p class="mb-0 text-muted">
-                    A Tornearia Satélite atua ha mais de 15 anos fabricando pecas
-                    para extrusoras de plastico e linhas industriais de extrusao.
+                    A Tornearia Satélite atua há mais de 15 anos fabricando peças
+                    para extrusoras de plástico e linhas industriais de extrusão.
                 </p>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <h2 class="h5 fw-bold">O que fazemos</h2>
                 <p class="mb-0 text-muted">
                     Produzimos rosca extrusora, canhão extrusora
-                    e conjuntos de rosca e canhão com acabamento e tolerancia de precisao.
+                    e conjuntos de rosca e canhão com acabamento e tolerância de precisão.
                 </p>
             </div>
         </div>
@@ -45,8 +45,8 @@
             <div class="info-card h-100 p-4 rounded-3">
                 <h2 class="h5 fw-bold">Diferenciais</h2>
                 <p class="mb-0 text-muted">
-                    Materiais resistentes ao desgaste, retrabalho tecnico e entrega
-                    alinhada ao calendario de manutencao das extrusoras.
+                    Materiais resistentes ao desgaste, retrabalho técnico e entrega
+                    alinhada ao calendário de manutenção das extrusoras.
                 </p>
             </div>
         </div>
