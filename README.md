@@ -1,71 +1,166 @@
-# Satelite Tornearia
+# Satelite Soluções Indústria
 
-Site de catalogo de produtos para uma tornearia, desenvolvido em PHP com MySQL e Bootstrap.
+Site de catálogo de produtos para uma tornearia, desenvolvido em **PHP**, **MySQL** e **Bootstrap 5**.
 
-## Criterios atendidos
+## Sobre o projeto
 
-### Modelagem e banco de dados
-- DER em [`docs/DER.md`](docs/DER.md)
-- 4 tabelas: `categorias`, `produtos`, `materiais`, `produto_material`
-- Chaves primarias e estrangeiras
-- Relacao N:N entre produtos e materiais
+Aplicação web que exibe produtos usinados (roscas, canhões, conjuntos, cabeçotes e outros) com dados lidos do banco de dados. O layout usa tema escuro com destaque em verde.
 
-### Redes e sistemas operacionais
-- Porta **8080** (`deploy/apache-satelite.conf`)
-- DNS local `satelite.local` ([`docs/INFRAESTRUTURA.md`](docs/INFRAESTRUTURA.md))
-- Banco com IP fixo `192.168.56.20`
-- App e banco em maquinas separadas (topologia documentada)
-- Listagem de diretorios desabilitada (`public/.htaccess`)
+## Funcionalidades
 
-### Desenvolvimento web moderno
-- Layout PHP com templates em `templates/`
-- Bootstrap 5: navbar, cards, accordion, tabela, alertas, formulario
-- Conexao PDO com MySQL
-- Dados lidos do banco e exibidos na tela
-- Estruturas `if`, `while` e `foreach`
+- **Home** — apresentação da empresa e produtos em destaque
+- **Produtos** — catálogo completo com cards e tabela
+- **Fotos** — imagem por produto (com placeholder quando não houver arquivo)
+- **Busca** — por código (ex: `SAT-002`) ou por nome/categoria
+- **Filtro** — por preço mínimo
+- **Desconto** — opcional de 10% no catálogo
+- **Frete estimado** — calculado por função PHP
+- **Materiais** — relação N:N entre produtos e materiais no banco
 
-### Logica de programacao
-- Produtos organizados em **um unico array** (`montarArrayProdutos`)
-- Funcoes customizadas: `calcularFrete`, `aplicarDesconto`, `buscarProdutoPorCodigo`, `filtrarPorPrecoMinimo`
-- Entrada por parametros e retorno com `return` (sem globals)
-- Busca por codigo e filtro por preco minimo
-- Validacao com `validarProdutos` antes do processamento
+## Banco de dados
+
+### Tabelas
+
+| Tabela | Descrição |
+|--------|-----------|
+| `categorias` | Tipos de produto |
+| `produtos` | Catálogo (código, nome, preço, foto, destaque) |
+| `materiais` | Materiais usados na fabricação |
+| `produto_material` | Relação N:N entre produtos e materiais |
+
+### Categorias cadastradas
+
+1. Roscas Extrusoras  
+2. Canhões Extrusoras  
+3. Conjuntos Rosca e Canhão  
+4. Cabeçotes  
+5. Roscas Injetoras  
+6. Outros  
+
+### Produtos em destaque (home)
+
+Produtos com `destaque = 1` no banco. Atualmente:
+
+- SAT-002 — Rosca extrusora Ø65mm  
+- SAT-006 — Conjunto rosca e canhão extrusora Ø60mm  
+
+Para alterar:
+
+```sql
+UPDATE produtos SET destaque = 1 WHERE codigo = 'SAT-003';
+UPDATE produtos SET destaque = 0 WHERE codigo = 'SAT-002';
+```
 
 ## Estrutura do projeto
 
 ```
 satelite/
-├── config/database.php
-├── database/schema.sql
-├── deploy/apache-satelite.conf
-├── docs/
+├── config/
+│   └── database.php          # Credenciais locais (nao vai pro GitHub)
+├── database/
+│   ├── schema.sql            # Criacao do banco do zero
+│   ├── sync_virtualbox.sql   # Atualizar banco na VM
+│   └── sync_virtualbox_utf8.sql
 ├── includes/
+│   ├── app.php
+│   ├── functions.php
+│   └── produtos_repository.php
 ├── public/
 │   ├── index.php
-│   └── assets/
+│   ├── produtos.php
+│   ├── assets/css/style.css
+│   └── assets/img/produtos/  # Fotos dos produtos
 └── templates/
+    ├── header.php
+    ├── footer.php
+    ├── empresa_sobre.php
+    └── produto_card.php
 ```
 
 ## Como rodar
 
-1. Importe `database/schema.sql` no MySQL.
-2. Configure credenciais em `config/database.php` ou variaveis `DB_*`.
-3. Inicie o servidor:
+### 1. Banco de dados
+
+Importe o schema no MySQL (phpMyAdmin ou terminal):
+
+```bash
+mysql -u root -p < database/schema.sql
+```
+
+### 2. Configurar conexão
+
+Crie o arquivo `config/database.php` com os dados do seu MySQL:
+
+```php
+<?php
+
+return [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'database' => 'tornearia_satelite',
+    'charset' => 'utf8mb4',
+    'username' => 'root',
+    'password' => 'sua_senha',
+];
+```
+
+> **Importante:** `config/database.php` está no `.gitignore` e **não deve ser enviado ao GitHub** (contém senha).
+
+### 3. Fotos dos produtos
+
+Coloque as imagens em `public/assets/img/produtos/` com o mesmo nome do campo `imagem` no banco:
+
+| Código | Arquivo |
+|--------|---------|
+| SAT-001 | `sat-001.jpg` |
+| SAT-002 | `sat-002.jpeg` |
+| SAT-003 | `sat-003.jpeg` |
+| ... | ... |
+
+Se a foto não existir, o site exibe `sem-foto.svg`.
+
+### 4. Servidor PHP
 
 ```powershell
 cd public
 php -S localhost:8080
 ```
 
-4. Acesse `http://localhost:8080`.
+Acesse: `http://localhost:8080`
 
-Para ambiente de entrega com duas VMs, siga [`docs/INFRAESTRUTURA.md`](docs/INFRAESTRUTURA.md).
+## VirtualBox (banco em VM separada)
 
-## Funcionalidades do site
+Se o MySQL estiver em uma máquina virtual:
 
-- **Home** com apresentacao da empresa e produtos em destaque
-- **Produtos** com catalogo completo: rosca extrusora, canhao extrusora, matriz extrusora e conjuntos de rosca e canhao
-- Busca por codigo ou nome
-- Filtro por preco minimo
-- Calculo de frete e desconto promocional opcional
-- Visualizacao em cards e tabela
+1. Ajuste o `host` em `config/database.php` para o IP da VM (ex: `192.168.56.102`)
+2. Após alterar `schema.sql`, sincronize na VM:
+
+```powershell
+cmd /c "mysql --default-character-set=utf8mb4 -h IP_DA_VM -u usuario -p tornearia_satelite < database\sync_virtualbox.sql"
+cmd /c "mysql --default-character-set=utf8mb4 -h IP_DA_VM -u usuario -p tornearia_satelite < database\sync_virtualbox_utf8.sql"
+```
+
+> O arquivo `schema.sql` **não atualiza sozinho** a VM. É preciso rodar o SQL manualmente ou usar os scripts de sync.
+
+## Lógica PHP (critérios acadêmicos)
+
+- Produtos em **um único array** (`montarArrayProdutos`)
+- Estruturas **`if`**, **`while`** e **`foreach`**
+- Funções com **`return`**: `calcularFrete`, `aplicarDesconto`, `buscarProdutoPorCodigo`, `filtrarPorPrecoMinimo`, `exibirCardProduto`
+- Conexão **PDO** com MySQL
+- Validação com `validarProdutos` antes de exibir os dados
+
+## GitHub
+
+Pode subir o projeto como repositório **público** ou **privado**.
+
+**Não envie ao GitHub:**
+
+- `config/database.php` (senhas)
+- Arquivos `.env`
+
+**Pode enviar:**
+
+- Código PHP, CSS, templates
+- `database/schema.sql`
+- Imagens de produtos (se quiser)
