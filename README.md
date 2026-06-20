@@ -13,7 +13,6 @@ Aplicação web que exibe produtos usinados (roscas, canhões, conjuntos, cabeç
 - **Fotos** — imagem por produto (com placeholder quando não houver arquivo)
 - **Busca** — por código (ex: `SAT-002`) ou por nome/categoria
 - **Filtro** — por preço mínimo
-- **Desconto** — opcional de 10% no catálogo
 - **Frete estimado** — calculado por função PHP
 - **Materiais** — relação N:N entre produtos e materiais no banco
 
@@ -56,11 +55,9 @@ UPDATE produtos SET destaque = 0 WHERE codigo = 'SAT-002';
 ```
 satelite/
 ├── config/
-│   └── database.php          # Credenciais locais (nao vai pro GitHub)
+│   └── database.php        
 ├── database/
-│   ├── schema.sql            # Criacao do banco do zero
-│   ├── sync_virtualbox.sql   # Atualizar banco na VM
-│   └── sync_virtualbox_utf8.sql
+│   ├── schema.sql          
 ├── includes/
 │   ├── app.php
 │   ├── functions.php
@@ -69,7 +66,7 @@ satelite/
 │   ├── index.php
 │   ├── produtos.php
 │   ├── assets/css/style.css
-│   └── assets/img/produtos/  # Fotos dos produtos
+│   └── assets/img/produtos/  
 └── templates/
     ├── header.php
     ├── footer.php
@@ -118,13 +115,6 @@ Coloque as imagens em `public/assets/img/produtos/` com o mesmo nome do campo `i
 | ... | ... |
 
 Se a foto não existir, o site exibe `sem-foto.svg`.
-
-### 4. Servidor PHP
-
-```powershell
-cd public
-php -S localhost:8080
-```
 
 Acesse: `http://localhost:8080`
 
